@@ -134,6 +134,67 @@ describe("authenticate", () => {
   });
 });
 
+describe("authenticate-with-emrtd", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("should throw ExtensionUnavailableError on request timeout", async () => {
+    const options: NativeAppOptions = { userInteractionTimeout: 1, lang: "en" };
+
+    const challengeNonce = "12345678901234567890123456789012345678901234";
+
+    await expect(webeid.authenticateWithEmrtd(challengeNonce, options)).rejects.toThrow(ExtensionUnavailableError);
+  });
+
+  it("should include challengeNonce and libraryVersion with message to extension", async () => {
+    jest.spyOn(window, "postMessage").mockImplementation();
+
+    const options: NativeAppOptions = { userInteractionTimeout: 1 };
+
+    const challengeNonce = "12345678901234567890123456789012345678901234";
+
+    try { await webeid.authenticateWithEmrtd(challengeNonce, options); } catch (e) { /* ignore */ }
+
+    expect(window.postMessage).toBeCalledTimes(1);
+    expect(window.postMessage).toBeCalledWith(
+      {
+        action: "web-eid:authenticate-with-emrtd",
+
+        challengeNonce: "12345678901234567890123456789012345678901234",
+        libraryVersion: process.env.npm_package_version,
+
+        options: { userInteractionTimeout: 1 },
+      },
+      "*",
+    );
+  });
+
+  it("should optionally include lang option with message to extension", async () => {
+    jest.spyOn(window, "postMessage").mockImplementation();
+
+    // Including userInteractionTimeout to speed up the test
+    const options: NativeAppOptions = { userInteractionTimeout: 1, lang: "en" };
+
+    const challengeNonce = "12345678901234567890123456789012345678901234";
+
+    try { await webeid.authenticateWithEmrtd(challengeNonce, options); } catch (e) { /* ignore */ }
+
+    expect(window.postMessage).toBeCalledTimes(1);
+    expect(window.postMessage).toBeCalledWith(
+      {
+        action: "web-eid:authenticate-with-emrtd",
+
+        challengeNonce: "12345678901234567890123456789012345678901234",
+        libraryVersion: process.env.npm_package_version,
+
+        options: { userInteractionTimeout: 1, lang: "en" },
+      },
+      "*",
+    );
+  });
+});
+
 describe("getSigningCertificate", () => {
   afterEach(() => {
     jest.restoreAllMocks();

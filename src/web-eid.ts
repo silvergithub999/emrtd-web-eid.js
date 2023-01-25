@@ -22,17 +22,19 @@
 
 import {
   ExtensionAuthenticateRequest,
+  ExtensionAuthenticateWithEmrtdRequest,
   ExtensionGetSigningCertificateRequest,
   ExtensionSignRequest,
   ExtensionStatusRequest,
 } from "./models/message/ExtensionRequest";
 import {
-  ExtensionAuthenticateResponse,
+  ExtensionAuthenticateResponse, ExtensionAuthenticateWithEmrtdResponse,
   ExtensionGetSigningCertificateResponse,
   ExtensionSignResponse,
   ExtensionStatusResponse,
 } from "./models/message/ExtensionResponse";
 import {
+  LibraryAuthenticateEmrtdResponse,
   LibraryAuthenticateResponse,
   LibraryGetSigningCertificateResponse,
   LibrarySignResponse,
@@ -119,6 +121,49 @@ export async function authenticate(
     format,
     appVersion,
   } = await webExtensionService.send<ExtensionAuthenticateResponse>(message, timeout);
+
+  return {
+    unverifiedCertificate,
+    algorithm,
+    signature,
+    format,
+    appVersion,
+  };
+}
+
+export async function authenticateWithEmrtd(
+  challengeNonce: string,
+  options?: ActionOptions
+): Promise<LibraryAuthenticateEmrtdResponse> {
+  await extensionLoadDelay();
+
+  if (!challengeNonce) {
+    throw new MissingParameterError("authenticateWithEmrtd function requires a challengeNonce");
+  }
+
+  const timeout = (
+    config.EXTENSION_HANDSHAKE_TIMEOUT +
+    config.NATIVE_APP_HANDSHAKE_TIMEOUT +
+    (options?.userInteractionTimeout || config.DEFAULT_USER_INTERACTION_TIMEOUT)
+  );
+
+  const message: ExtensionAuthenticateWithEmrtdRequest = {
+    action:         Action.AUTHENTICATE_WITH_EMRTD,
+    libraryVersion: config.VERSION,
+
+    challengeNonce,
+    options,
+  };
+
+  console.log("TODO: test");
+
+  const {
+    unverifiedCertificate,
+    algorithm,
+    signature,
+    format,
+    appVersion,
+  } = await webExtensionService.send<ExtensionAuthenticateWithEmrtdResponse>(message, timeout);
 
   return {
     unverifiedCertificate,

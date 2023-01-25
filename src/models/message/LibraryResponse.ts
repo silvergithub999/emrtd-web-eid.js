@@ -22,6 +22,7 @@
 
 import {
   ExtensionAuthenticateResponse,
+  ExtensionAuthenticateWithEmrtdResponse,
   ExtensionGetSigningCertificateResponse,
   ExtensionSignResponse,
   ExtensionStatusResponse,
@@ -31,9 +32,11 @@ export type LibraryStatusResponse                = Omit<ExtensionStatusResponse,
 export type LibraryAuthenticateResponse          = Omit<ExtensionAuthenticateResponse, "action">;
 export type LibraryGetSigningCertificateResponse = Omit<ExtensionGetSigningCertificateResponse, "action">;
 export type LibrarySignResponse                  = Omit<ExtensionSignResponse, "action">;
+export type LibraryAuthenticateEmrtdResponse          = Omit<ExtensionAuthenticateWithEmrtdResponse, "action">;
 
 export type LibraryResponse
   = LibraryStatusResponse
   | LibraryAuthenticateResponse
   | LibraryGetSigningCertificateResponse
-  | LibrarySignResponse;
+  | LibrarySignResponse
+  | LibraryAuthenticateEmrtdResponse;

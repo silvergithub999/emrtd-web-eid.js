@@ -31,6 +31,7 @@ function tmpl(strings: TemplateStringsArray, requiresUpdate: string): string {
 export default class VersionMismatchError extends Error {
   public requiresUpdate: RequiresUpdate;
   public code: ErrorCode;
+  public versions?: Versions;
   public nativeApp?: string;
   public extension?: string;
   public library?: string;

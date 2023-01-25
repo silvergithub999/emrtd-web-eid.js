@@ -33,6 +33,11 @@ enum Action {
   AUTHENTICATE_SUCCESS = "web-eid:authenticate-success",
   AUTHENTICATE_FAILURE = "web-eid:authenticate-failure",
 
+  AUTHENTICATE_WITH_EMRTD         = "web-eid:authenticate-with-emrtd",
+  AUTHENTICATE_WITH_EMRTD_ACK     = "web-eid:authenticate-with-emrtd-ack",
+  AUTHENTICATE_WITH_EMRTD_SUCCESS = "web-eid:authenticate-with-emrtd-success",
+  AUTHENTICATE_WITH_EMRTD_FAILURE = "web-eid:authenticate-with-emrtd-failure",
+
   GET_SIGNING_CERTIFICATE         = "web-eid:get-signing-certificate",
   GET_SIGNING_CERTIFICATE_ACK     = "web-eid:get-signing-certificate-ack",
   GET_SIGNING_CERTIFICATE_SUCCESS = "web-eid:get-signing-certificate-success",
