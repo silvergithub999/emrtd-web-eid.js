@@ -77,6 +77,11 @@ export interface NativeAuthenticateWithEmrtdResponse {
    */
   unverifiedCertificate: string;
 
+  // TODO: comments for these three
+  unverifiedPhoto: string;
+  unverifiedMrz: string;
+  unverifiedDocumentSecurityObject: string;
+
   /**
    * The algorithm used to produce the authentication token signature
    *

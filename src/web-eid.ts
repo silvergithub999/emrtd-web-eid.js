@@ -159,6 +159,9 @@ export async function authenticateWithEmrtd(
 
   const {
     unverifiedCertificate,
+    unverifiedPhoto,
+    unverifiedMrz,
+    unverifiedDocumentSecurityObject,
     algorithm,
     signature,
     format,
@@ -167,6 +170,9 @@ export async function authenticateWithEmrtd(
 
   return {
     unverifiedCertificate,
+    unverifiedPhoto,
+    unverifiedMrz,
+    unverifiedDocumentSecurityObject,
     algorithm,
     signature,
     format,

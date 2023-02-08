@@ -144,6 +144,11 @@ export interface ExtensionAuthenticateWithEmrtdResponse {
    */
   unverifiedCertificate: string;
 
+  // TODO: comments for these three
+  unverifiedPhoto: string;
+  unverifiedMrz: string;
+  unverifiedDocumentSecurityObject: string;
+
   /**
    * The algorithm used to produce the authentication signature
    *
