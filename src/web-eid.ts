@@ -155,10 +155,8 @@ export async function authenticateWithEmrtd(
     options,
   };
 
-  console.log("TODO: test");
-
   const {
-    unverifiedCertificate,
+    unverifiedPublicKeyInfo,
     unverifiedPhoto,
     unverifiedMrz,
     unverifiedDocumentSecurityObject,
@@ -169,7 +167,7 @@ export async function authenticateWithEmrtd(
   } = await webExtensionService.send<ExtensionAuthenticateWithEmrtdResponse>(message, timeout);
 
   return {
-    unverifiedCertificate,
+    unverifiedPublicKeyInfo,
     unverifiedPhoto,
     unverifiedMrz,
     unverifiedDocumentSecurityObject,

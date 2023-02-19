@@ -135,16 +135,8 @@ export interface ExtensionSignResponse {
 export interface ExtensionAuthenticateWithEmrtdResponse {
   action: Action.AUTHENTICATE_WITH_EMRTD_SUCCESS;
 
-  /**
-   * The base64-encoded DER-encoded authentication certificate of the eID user
-   *
-   * The public key contained in this certificate should be used to verify the signature.
-   * The certificate cannot be trusted as it is received from client side and the client can submit a malicious certificate.
-   * To establish trust, it must be verified that the certificate is signed by a trusted certificate authority.
-   */
-  unverifiedCertificate: string;
-
-  // TODO: comments for these three
+  // TODO: comments for these
+  unverifiedPublicKeyInfo: string;
   unverifiedPhoto: string;
   unverifiedMrz: string;
   unverifiedDocumentSecurityObject: string;
